@@ -1,0 +1,96 @@
+.header-main {
+    width: 100%;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logo-icon {
+    height: 40px;
+    width: auto;
+}
+
+.brand-name {
+    font-family: 'Inter', sans-serif;
+    fontSize: 1.5rem;
+    font-weight: 700;
+    color: #1A4B7C;
+}
+
+.header-nav {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.btn-link-base {
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    padding: 8px 20px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    color: #1A4B7C;
+    border: 1.5px solid #1A4B7C;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-icon-svg {
+    cursor: pointer;
+}
+
+/* Styles pour mobiles */
+@media (max-width: 768px) {
+    .header-container {
+        padding: 10px 15px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .header-nav {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .btn-link-base {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+    }
+
+    .user-area {
+        flex-direction: column;
+        align-items: center;
+    }
+}

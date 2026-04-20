@@ -1,0 +1,62 @@
+.cgu-main {
+    background-color: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+    min-height: calc(100vh - 270px);
+    font-family: 'Inter', sans-serif;
+}
+
+.cgu-card {
+    background-color: #ffffff;
+    max-width: 800px;
+    width: 100%;
+    padding: 50px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.cgu-title {
+    font-size: 2.2rem;
+    color: #1A4B7C;
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.cgu-date {
+    color: #64748b;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 40px;
+    display: block;
+}
+
+.cgu-content h2 {
+    color: #1A4B7C;
+    font-size: 1.3rem;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-left: 4px solid #2D89C8;
+    padding-left: 15px;
+}
+
+.cgu-content p {
+    color: #334155;
+    line-height: 1.7;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+.cgu-content ul {
+    margin-bottom: 15px;
+    padding-left: 20px;
+}
+
+.cgu-content li {
+    color: #334155;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}

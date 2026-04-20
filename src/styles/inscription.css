@@ -1,0 +1,109 @@
+.inscription-main {
+    background-color: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+    min-height: 80vh;
+    font-family: 'Inter', sans-serif;
+}
+
+.inscription-card {
+    background-color: #ffffff;
+    max-width: 500px;
+    width: 100%;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    text-align: center;
+    border: 1px solid #e2e8f0;
+}
+
+.inscription-title {
+    font-size: 2.2rem;
+    color: #1A4B7C;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.inscription-subtitle {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+}
+
+.inscription-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+}
+
+.inscription-row {
+    display: flex;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.input-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+.input-field {
+    padding: 12px 15px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.help-text {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+.checkbox-text {
+    font-size: 0.85rem;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+.link-inline {
+    color: #2D89C8;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.divider-container {
+    display: flex;
+    align-items: center;
+    margin: 25px 0;
+    color: #cbd5e1;
+}
+
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background-color: #e2e8f0;
+}
+
+.divider-text {
+    padding: 0 15px;
+    font-size: 0.85rem;
+}
+
+.inscription-footer-text {
+    font-size: 0.95rem;
+    color: #64748b;
+}
