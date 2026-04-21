@@ -74,6 +74,7 @@
         padding: 10px 15px;
         flex-direction: column;
         gap: 15px;
+        align-items: center;
     }
 
     .header-nav {
@@ -92,5 +93,20 @@
     .user-area {
         flex-direction: column;
         align-items: center;
+    }
+
+    .logo-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .logo-icon {
+        width: 35px;
+        height: auto;
+    }
+
+    .brand-name {
+        font-size: 1.2rem; 
     }
 }
