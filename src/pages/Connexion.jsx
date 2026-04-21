@@ -10,31 +10,42 @@ const Connexion = () => {
     const [hoveredForgot, setHoveredForgot] = useState(false);
     const [hoveredRegister, setHoveredRegister] = useState(false);
 
+    // États pour le formulaire
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-        const response = await fetch('http://localhost:3000/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
-        });
+        e.preventDefault();
 
-        const data = await response.json();
-        
-        if (response.ok) {
-            // Ici, data.token contient enfin la valeur envoyée par ton backend
-            localStorage.setItem('token', data.token); 
-            navigate('/dashboard');
-        } else {
-            alert(data.message || "Erreur de connexion");
+        try {
+            const response = await fetch('http://localhost:3000/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                // On utilise 'password' pour matcher le Backend
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // 1. Sauvegarde du token
+                localStorage.setItem('token', data.token);
+
+                // 2. Sauvegarde de l'objet user pour le Header
+                localStorage.setItem('user', JSON.stringify(data.user));
+
+                // 3. Redirection vers la page d'accueil ou dashboard
+                navigate('/');
+            } else {
+                alert(data.message || "Email ou mot de passe incorrect");
+            }
+        } catch (error) {
+            console.error("Erreur de connexion :", error);
+            alert("Le serveur ne répond pas. Vérifie qu'il est bien lancé !");
         }
-    } catch (error) {
-        alert("Erreur de connexion au serveur.");
-    }
-};
+    };
 
     // Styles dynamiques pour la logique de hover (JS)
     const dynamicStyles = {

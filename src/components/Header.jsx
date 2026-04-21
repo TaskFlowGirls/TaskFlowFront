@@ -9,19 +9,37 @@ const Header = () => {
 
     // État de connexion basé sur la présence d'un token
     const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
+    // NOUVEL ÉTAT : Pour stocker le nom de l'utilisateur
+    const [userName, setUserName] = useState('');
 
     useEffect(() => {
         const checkAuth = () => {
-            setIsLoggedIn(!!localStorage.getItem('token'));
+            const token = localStorage.getItem('token');
+            const storedUser = localStorage.getItem('user');
+
+            setIsLoggedIn(!!token);
+
+            // Si l'utilisateur est stocké, on récupère son prénom
+            if (storedUser) {
+                try {
+                    const userObj = JSON.parse(storedUser);
+                    setUserName(userObj.prenom || '');
+                } catch (e) {
+                    console.error("Erreur parsing user", e);
+                }
+            }
         };
 
+        checkAuth(); // Vérification au montage du composant
         window.addEventListener('storage', checkAuth);
         return () => window.removeEventListener('storage', checkAuth);
     }, []);
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('user'); // On nettoie aussi l'user
         setIsLoggedIn(false);
+        setUserName('');
         navigate('/');
     };
 
@@ -48,15 +66,24 @@ const Header = () => {
 
                 <nav className="header-nav">
                     {isLoggedIn ? (
-                        <div className="user-area">
-                            <svg
-                                width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                stroke="#1A4B7C" strokeWidth="2" strokeLinecap="round"
-                                strokeLinejoin="round" className="user-icon-svg"
-                            >
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
+                        <div className="user-area" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                            {/* AJOUT : Affichage du prénom à côté de l'icône */}
+                            <div className="user-profile-display" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <svg
+                                    width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    stroke="#1A4B7C" strokeWidth="2" strokeLinecap="round"
+                                    strokeLinejoin="round" className="user-icon-svg"
+                                >
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                                {userName && (
+                                    <span style={{ color: '#1A4B7C', fontWeight: '600', fontSize: '0.95rem' }}>
+                                        {userName}
+                                    </span>
+                                )}
+                            </div>
+
                             <button
                                 onClick={handleLogout}
                                 className="btn-link-base"
