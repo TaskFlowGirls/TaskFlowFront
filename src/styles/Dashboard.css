@@ -69,6 +69,12 @@
     flex-direction: column;
 }
 
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-color: #2D89C8; /* Le bleu TaskFlow */
+}
+
 .loading-state, .no-data {
     text-align: center;
     padding: 50px;

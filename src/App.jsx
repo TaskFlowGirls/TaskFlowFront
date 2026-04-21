@@ -8,6 +8,7 @@ import Contact from './pages/Contact';
 import Dashboard from './pages/Dashboard';
 import Projets from './components/Projets.jsx';
 import CreerProjet from './pages/Creer-projets.jsx';
+import ProjetDetail from './pages/ProjetDetail';
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path='/creer-projets' element={<CreerProjet />} />
                 <Route path='/projets' element={<Projets />} />
+                <Route path="/projet/:id" element={<ProjetDetail />} />
             </Routes>
         </div>
     );

@@ -3,10 +3,11 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Projets from '../components/Projets';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Dashboard.css';
 
 const Dashboard = () => {
+    const navigate = useNavigate(); // AJOUT : Initialisation du hook de navigation
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -14,13 +15,13 @@ const Dashboard = () => {
         const fetchProjects = async () => {
             // 1. On récupère le badge (token) depuis la poche (localStorage)
             const token = localStorage.getItem('token');
-            
+
             try {
                 const response = await fetch('http://localhost:3000/api/projets', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        // 2. On présente le badge ici
+                        // 2. On presents le badge ici
                         'Authorization': `Bearer ${token}`
                     }
                 });
@@ -41,6 +42,11 @@ const Dashboard = () => {
         };
         fetchProjects();
     }, []);
+
+    // AJOUT : Fonction pour gérer le clic et rediriger
+    const handleProjectClick = (id) => {
+        navigate(`/projet/${id}`);
+    };
 
     return (
         <>
@@ -63,7 +69,14 @@ const Dashboard = () => {
                         <div className="projects-grid">
                             {projects.length > 0 ? (
                                 projects.map((projet) => (
-                                    <Projets key={projet.id_projet} projet={projet} />
+                                    /* AJOUT : onClick pour la redirection et style pointer */
+                                    <div
+                                        key={projet.id_projet}
+                                        onClick={() => handleProjectClick(projet.id_projet)}
+                                        style={{ cursor: 'pointer' }}
+                                    >
+                                        <Projets projet={projet} />
+                                    </div>
                                 ))
                             ) : (
                                 <p className="no-data">Aucun projet trouvé.</p>
