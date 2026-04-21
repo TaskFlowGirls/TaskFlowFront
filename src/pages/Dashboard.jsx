@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Projets from '../components/Projets';
+import { Link } from 'react-router-dom';
 import '../styles/Dashboard.css';
 
 const Dashboard = () => {
@@ -34,9 +35,9 @@ const Dashboard = () => {
                             <h1>Mes Projets</h1>
                             <p>Gérez et organisez tous vos projets en un seul endroit</p>
                         </div>
-                        <button className="btn-create-project">
+                        <Link to="./components/Projets.jsx" className="btn-create-project">
                             + Créer un nouveau Projet
-                        </button>
+                        </Link>
                     </header>
 
                     {loading ? (
