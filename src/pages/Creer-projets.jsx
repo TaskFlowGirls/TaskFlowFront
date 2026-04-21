@@ -5,20 +5,28 @@ import Footer from '../components/Footer';
 import '../styles/Creer-projet.css';
 
 const CreerProjet = () => {
-    const [nom, setNom] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const [nom, setNom] = useState('');
+    const [type, setType] = useState(''); // Ajoute ça
+    const [description, setDescription] = useState(''); // Ajoute ça
+
+const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('token'); // Récupère le jeton maintenant stocké
+    const token = localStorage.getItem('token');
 
     const response = await fetch('http://localhost:3000/api/projets', {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` // Le garde du backend verra enfin ce jeton
+            'Authorization': `Bearer ${token}` 
         },
-        body: JSON.stringify({ nom_projet: nom }),
+        // Envoie TOUS les champs attendus par ton Backend
+        body: JSON.stringify({ 
+            nomProjet: nom, 
+            typeProjet: type, 
+            descriptionProjet: description 
+        }),
     });
 
     if (response.ok) {
@@ -41,6 +49,22 @@ const CreerProjet = () => {
                         onChange={(e) => setNom(e.target.value)}
                         required
                     />
+
+                    <label>Type du projet :</label>
+                    <input
+                        type='text'
+                        value={type}
+                        onChange={(e) => setType(e.target.value)}
+                        required
+                    />
+
+                    <label>Description :</label>
+                    <textarea
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        required
+                    />
+
                     <button type='submit' className="btn-create-project">
                         Enregistrer
                     </button>
