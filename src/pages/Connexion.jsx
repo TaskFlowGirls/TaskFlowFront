@@ -14,10 +14,33 @@ const Connexion = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = (e) => {
-        e.preventDefault();
+    const handleLogin = async (e) => {
+    e.preventDefault();
 
-    };
+    try {
+        const response = await fetch('http://localhost:3000/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // Sauvegarde du token reçu dans le localStorage
+            localStorage.setItem('token', data.token);
+            // Redirection vers le tableau de bord ou la page d'accueil
+            navigate('/'); 
+        } else {
+            alert(data.message || "Email ou mot de passe incorrect");
+        }
+    } catch (error) {
+        console.error("Erreur de connexion :", error);
+        alert("Le serveur ne répond pas. Vérifie qu'il est bien lancé !");
+    }
+};
 
     // Styles dynamiques pour la logique de hover (JS)
     const dynamicStyles = {
