@@ -69,58 +69,9 @@
     flex-direction: column;
 }
 
-.project-card:hover {
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-    transform: translateY(-5px);
-    border-color: #2D89C8;
-}
-
-.project-preview {
-    background-color: #cbd5e1; /* Gris de secours */
-    height: 180px;
-    margin: 15px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden; /* Important pour que l'image ne dépasse pas des bords arrondis */
-}
-
-/* Nouveau style pour l'image venant de la BDD ou du Hero */
-.project-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* L'image remplit tout l'espace sans se déformer */
-    display: block;
-}
-
-/* Badge Solo/Équipe */
-.project-badge {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background-color: rgba(226, 232, 240, 0.9); /* Légère transparence pour voir l'image derrière */
-    color: #64748b;
-    padding: 4px 12px;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    z-index: 10; /* Assure que le badge reste au-dessus de l'image */
-}
-
-.project-footer {
-    padding: 20px;
+.loading-state, .no-data {
     text-align: center;
-    border-top: 1px solid #f1f5f9;
-    background-color: #f8fafc;
-}
-
-.project-footer h3 {
-    color: #1A4B7C;
-    font-size: 1.1rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    margin: 0;
+    padding: 50px;
+    color: #64748b;
+    grid-column: 1 / -1;
 }
