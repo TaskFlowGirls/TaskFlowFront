@@ -12,12 +12,29 @@ const Dashboard = () => {
 
     useEffect(() => {
         const fetchProjects = async () => {
+            // 1. On récupère le badge (token) depuis la poche (localStorage)
+            const token = localStorage.getItem('token');
+            
             try {
-                const response = await fetch('http://localhost:3000/api/projets');
+                const response = await fetch('http://localhost:3000/api/projets', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // 2. On présente le badge ici
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    // Si le serveur répond autre chose que 200, on lance une erreur
+                    throw new Error('Erreur lors de la récupération des projets');
+                }
+
                 const data = await response.json();
                 setProjects(Array.isArray(data) ? data : []);
             } catch (error) {
                 console.error("Erreur API Projets:", error);
+                // C'est cette erreur qui s'affiche dans ta console
             } finally {
                 setLoading(false);
             }
@@ -35,7 +52,7 @@ const Dashboard = () => {
                             <h1>Mes Projets</h1>
                             <p>Gérez et organisez tous vos projets en un seul endroit</p>
                         </div>
-                        <Link to="./components/Projets.jsx" className="btn-create-project">
+                        <Link to="/creer-projets" className="btn-create-project">
                             + Créer un nouveau Projet
                         </Link>
                     </header>

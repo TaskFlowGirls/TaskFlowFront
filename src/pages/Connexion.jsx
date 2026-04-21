@@ -10,35 +10,29 @@ const Connexion = () => {
     const [hoveredForgot, setHoveredForgot] = useState(false);
     const [hoveredRegister, setHoveredRegister] = useState(false);
 
-    // États pour le formulaire
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
         const response = await fetch('http://localhost:3000/api/auth/login', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password }),
         });
 
         const data = await response.json();
-
+        
         if (response.ok) {
-            // Sauvegarde du token reçu dans le localStorage
-            localStorage.setItem('token', data.token);
-            // Redirection vers le tableau de bord ou la page d'accueil
-            navigate('/'); 
+            // Ici, data.token contient enfin la valeur envoyée par ton backend
+            localStorage.setItem('token', data.token); 
+            navigate('/dashboard');
         } else {
-            alert(data.message || "Email ou mot de passe incorrect");
+            alert(data.message || "Erreur de connexion");
         }
     } catch (error) {
-        console.error("Erreur de connexion :", error);
-        alert("Le serveur ne répond pas. Vérifie qu'il est bien lancé !");
+        alert("Erreur de connexion au serveur.");
     }
 };
 

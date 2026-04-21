@@ -6,6 +6,8 @@ import Connexion from "./pages/Connexion.jsx";
 import CGU from './pages/CGU';
 import Contact from './pages/Contact';
 import Dashboard from './pages/Dashboard';
+import Projets from './components/Projets.jsx';
+import CreerProjet from './pages/Creer-projets.jsx';
 
 function App() {
     return (
@@ -17,6 +19,8 @@ function App() {
                 <Route path="/cgu" element={<CGU />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path='/creer-projets' element={<CreerProjet />} />
+                <Route path='/projets' element={<Projets />} />
             </Routes>
         </div>
     );

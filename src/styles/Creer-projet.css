@@ -1,0 +1,53 @@
+/* src/styles/CreerProjet.css */
+.main-creation {
+    padding: 40px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    min-height: 70vh;
+}
+
+.main-creation h2 {
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.main-creation form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.main-creation label {
+    font-weight: 600;
+    color: #555;
+}
+
+.main-creation input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.main-creation input:focus {
+    outline: none;
+    border-color: #007bff; /* Remplace par ta couleur primaire */
+}
+
+/* On réutilise la classe du bouton pour la cohérence */
+.btn-create-project {
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.btn-create-project:hover {
+    background-color: #0056b3;
+}
