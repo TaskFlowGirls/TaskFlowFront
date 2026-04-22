@@ -4,18 +4,31 @@ import '../styles/ModalAddCard.css';
 const ModalAddCard = ({ isOpen, onClose, onAdd }) => {
     const [titre, setTitre] = useState('');
     const [description, setDescription] = useState('');
+    const [dateDebut, setDateDebut] = useState('');
     const [dateButoire, setDateButoire] = useState('');
-    const [tempsPrevu, setTempsPrevu] = useState(0);
+    const [heures, setHeures] = useState(0);
+    const [minutes, setMinutes] = useState(0);
 
     if (!isOpen) return null;
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onAdd({ titre, description, dateButoire, tempsPrevu: parseInt(tempsPrevu) });
+        const totalSecondes = (parseInt(heures || 0) * 3600) + (parseInt(minutes || 0) * 60);
+
+        onAdd({
+            titre,
+            description,
+            dateDebut,
+            dateButoire,
+            tempsPrevu: totalSecondes
+        });
+
         setTitre('');
         setDescription('');
+        setDateDebut('');
         setDateButoire('');
-        setTempsPrevu(0);
+        setHeures(0);
+        setMinutes(0);
     };
 
     return (
@@ -40,28 +53,31 @@ const ModalAddCard = ({ isOpen, onClose, onAdd }) => {
                     <div className="form-group">
                         <label>Description</label>
                         <textarea
-                            placeholder="Ajoutez des détails sur la tâche..."
+                            placeholder="Détails de la tâche..."
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                         />
                     </div>
 
-                    <div className="form-row">
+                    <div className="modal-time-row">
                         <div className="form-group">
-                            <label>Date butoire</label>
-                            <input
-                                type="date"
-                                value={dateButoire}
-                                onChange={(e) => setDateButoire(e.target.value)}
-                            />
+                            <label>Date de début</label>
+                            <input type="date" value={dateDebut} onChange={(e) => setDateDebut(e.target.value)} />
                         </div>
                         <div className="form-group">
-                            <label>Temps prévu (min)</label>
-                            <input
-                                type="number"
-                                value={tempsPrevu}
-                                onChange={(e) => setTempsPrevu(e.target.value)}
-                            />
+                            <label>Date butoire</label>
+                            <input type="date" value={dateButoire} onChange={(e) => setDateButoire(e.target.value)} />
+                        </div>
+                    </div>
+
+                    <div className="modal-time-row">
+                        <div className="form-group">
+                            <label>Heures (Prévues)</label>
+                            <input type="number" min="0" value={heures} onChange={(e) => setHeures(e.target.value)} />
+                        </div>
+                        <div className="form-group">
+                            <label>Minutes</label>
+                            <input type="number" min="0" max="59" value={minutes} onChange={(e) => setMinutes(e.target.value)} />
                         </div>
                     </div>
 

@@ -1,10 +1,9 @@
 import React from 'react';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { useDroppable } from '@dnd-kit/core'; // AJOUT pour le drag inter-colonnes
+import { useDroppable } from '@dnd-kit/core';
 import TaskCard from './TaskCard';
 
-const KanbanColumn = ({ title, tasks, icon, id, onDeleteTask }) => {
-    // On rend la colonne "Droppable" pour que dnd-kit sache qu'on peut lâcher des cartes ici
+const KanbanColumn = ({ title, tasks, icon, id, onDeleteTask, onUpdateTask }) => {
     const { setNodeRef } = useDroppable({
         id: id,
     });
@@ -12,7 +11,10 @@ const KanbanColumn = ({ title, tasks, icon, id, onDeleteTask }) => {
     return (
         <div ref={setNodeRef} className="kanban-column">
             <div className="column-header">
-                <span>{icon} {title}</span>
+                <div className="column-title-wrapper">
+                    <span className="column-icon">{icon}</span>
+                    <span className="column-title-text">{title}</span>
+                </div>
                 <span className="count-badge">{tasks.length}</span>
             </div>
 
@@ -21,13 +23,16 @@ const KanbanColumn = ({ title, tasks, icon, id, onDeleteTask }) => {
                     items={tasks.map(t => t.id)}
                     strategy={verticalListSortingStrategy}
                 >
-                    {tasks.map(task => (
-                        <TaskCard
-                            key={task.id}
-                            task={task}
-                            onDeleteTask={onDeleteTask}
-                        />
-                    ))}
+                    <div className="task-list-container">
+                        {tasks.map(task => (
+                            <TaskCard
+                                key={task.id}
+                                task={task}
+                                onDeleteTask={onDeleteTask}
+                                onUpdateTask={onUpdateTask}
+                            />
+                        ))}
+                    </div>
                 </SortableContext>
             </div>
         </div>
