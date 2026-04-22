@@ -9,7 +9,7 @@ import Dashboard from './pages/Dashboard';
 import Projets from './components/Projets.jsx';
 import CreerProjet from './pages/Creer-projets.jsx';
 import ProjetDetail from './pages/ProjetDetail';
-import InviteMember from './components/InviteModal.jsx';
+import InviteModal from './components/InviteModal.jsx';
 
 function App() {
     return (
@@ -24,7 +24,7 @@ function App() {
                 <Route path='/creer-projets' element={<CreerProjet />} />
                 <Route path='/projets' element={<Projets />} />
                 <Route path="/projet/:id" element={<ProjetDetail />} />
-                <Route path='invite-member' element={<InviteMember />} />
+                <Route path='invite-modal' element={<InviteModal />} />
             </Routes>
         </div>
     );
