@@ -73,6 +73,7 @@ const Contact = () => {
                                 value={formData.message} onChange={handleChange}
                                 placeholder="Détaillez votre demande ici..." required
                             />
+                            <span>J'accepte les <a href='/cgu' target='_blank'>CGU / RGPD</a></span>
                         </div>
 
                         <button type="submit" className="submit-btn">
