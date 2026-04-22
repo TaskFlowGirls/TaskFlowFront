@@ -77,6 +77,7 @@ const Connexion = () => {
 
     return (
         <>
+        <Header />
             <main className="connexion-main">
                 <div className="connexion-card">
                     <h1 className="connexion-title">Connexion</h1>
@@ -140,6 +141,7 @@ const Connexion = () => {
                     </p>
                 </div>
             </main>
+            <Footer />
         </>
     );
 };

@@ -86,6 +86,7 @@ const Inscription = () => {
 
     return (
         <>
+        <Header />
             <main className="inscription-main">
                 <div className="inscription-card">
                     <h1 className="inscription-title">Inscription</h1>
@@ -171,6 +172,7 @@ const Inscription = () => {
                     </p>
                 </div>
             </main>
+            <Footer />
         </>
     );
 };
