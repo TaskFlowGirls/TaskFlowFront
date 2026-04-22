@@ -11,6 +11,7 @@ import CreerProjet from './pages/Creer-projets.jsx';
 import ProjetDetail from './pages/ProjetDetail';
 import InviteModal from './components/InviteModal.jsx';
 import { Toaster } from 'react-hot-toast';
+import MonCompte from './pages/MonCompte.jsx';
 
 function App() {
     return (
@@ -38,6 +39,7 @@ function App() {
                 <Route path='/projets' element={<Projets />} />
                 <Route path="/projet/:id" element={<ProjetDetail />} />
                 <Route path='/invite-modal' element={<InviteModal />} />
+                <Route path='/mon-compte' element={<MonCompte />} />
             </Routes>
         </>
     );

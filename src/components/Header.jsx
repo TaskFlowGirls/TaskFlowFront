@@ -69,6 +69,8 @@ const Header = () => {
                         <div className="user-area" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                             {/* AJOUT : Affichage du prénom à côté de l'icône */}
                             <div className="user-profile-display" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                {/* AJOUT : Link pour rendre le profil cliquable */}
+                                <Link to="/mon-compte" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
                                 <svg
                                     width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     stroke="#1A4B7C" strokeWidth="2" strokeLinecap="round"
@@ -82,6 +84,7 @@ const Header = () => {
                                         {userName}
                                     </span>
                                 )}
+                                </Link>
                             </div>
 
                             <button
