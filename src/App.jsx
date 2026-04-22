@@ -10,10 +10,23 @@ import Projets from './components/Projets.jsx';
 import CreerProjet from './pages/Creer-projets.jsx';
 import ProjetDetail from './pages/ProjetDetail';
 import InviteModal from './components/InviteModal.jsx';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
     return (
-        <div>
+        <>
+            <Toaster
+                position="top-right"
+                reverseOrder={false}
+                toastOptions={{
+                    duration: 3000,
+                    style: {
+                        background: '#363636',
+                        color: '#fff',
+                    },
+                }}
+            />
+
             <Routes>
                 <Route path="/" element={<Accueil />} />
                 <Route path="/register" element={<Inscription />} />
@@ -24,9 +37,9 @@ function App() {
                 <Route path='/creer-projets' element={<CreerProjet />} />
                 <Route path='/projets' element={<Projets />} />
                 <Route path="/projet/:id" element={<ProjetDetail />} />
-                <Route path='invite-modal' element={<InviteModal />} />
+                <Route path='/invite-modal' element={<InviteModal />} />
             </Routes>
-        </div>
+        </>
     );
 }
 

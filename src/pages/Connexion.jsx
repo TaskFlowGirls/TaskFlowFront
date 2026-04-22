@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import toast from 'react-hot-toast'; // Importation du toaster
 import '../styles/connexion.css';
 
 const Connexion = () => {
@@ -23,7 +24,6 @@ const Connexion = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                // On utilise 'password' pour matcher le Backend
                 body: JSON.stringify({ email, password }),
             });
 
@@ -36,14 +36,18 @@ const Connexion = () => {
                 // 2. Sauvegarde de l'objet user pour le Header
                 localStorage.setItem('user', JSON.stringify(data.user));
 
-                // 3. Redirection vers la page d'accueil ou dashboard
+                // 3. Notification de succès
+                toast.success(`Heureux de vous revoir, ${data.user.prenom || 'utilisateur'} ! 👋`);
+
+                // 4. Redirection
                 navigate('/');
             } else {
-                alert(data.message || "Email ou mot de passe incorrect");
+                // Remplacement de l'alert par un toast error
+                toast.error(data.message || "Email ou mot de passe incorrect ❌");
             }
         } catch (error) {
             console.error("Erreur de connexion :", error);
-            alert("Le serveur ne répond pas. Vérifie qu'il est bien lancé !");
+            toast.error("Le serveur ne répond pas. Vérifie la connexion ! 🔌");
         }
     };
 
@@ -77,7 +81,7 @@ const Connexion = () => {
 
     return (
         <>
-        <Header />
+            <Header />
             <main className="connexion-main">
                 <div className="connexion-card">
                     <h1 className="connexion-title">Connexion</h1>
