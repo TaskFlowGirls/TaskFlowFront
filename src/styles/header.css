@@ -70,43 +70,35 @@
 
 /* Styles pour mobiles */
 @media (max-width: 768px) {
-    .header-container {
-        padding: 10px 15px;
-        flex-direction: column;
-        gap: 15px;
-        align-items: center;
-    }
-
-    .header-nav {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        gap: 10px;
+    .brand-name {
+        font-size: 1.2rem;
     }
 
     .btn-link-base {
-        width: 100%;
-        text-align: center;
-        padding: 12px;
+        padding: 6px 12px;
+        font-size: 0.85rem;
     }
 
-    .user-area {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .logo-wrapper {
-        display: flex;
-        align-items: center;
+    .header-nav {
         gap: 8px;
     }
 
-    .logo-icon {
-        width: 35px;
-        height: auto;
+    .user-area {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .brand-name {
+        display: none; /* Cache le texte pour laisser toute la place au logo et aux boutons */
     }
 
-    .brand-name {
-        font-size: 1.2rem; 
+    .header-nav {
+        gap: 5px;
+    }
+
+    .btn-link-base {
+        padding: 6px 8px;
+        font-size: 0.8rem;
     }
 }
