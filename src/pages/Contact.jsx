@@ -67,21 +67,35 @@ const Contact = () => {
                         </div>
 
                         <div className="input-group">
-                <label className="input-label" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <input
-                        type="checkbox"
-                        name="acceptedTerms"
-                        checked={formData.acceptedTerms}
-                        onChange={handleChange}
-                        required
-                    />
-                    <span>J'accepte les <a href='/cgu' target='_blank'>CGU / RGPD</a></span>
-                </label>
-            </div>
+                            <label className="input-label" htmlFor="message">Votre message</label>
+                            <textarea
+                                id="message" 
+                                name="message" 
+                                className="input-field textarea-field"
+                                value={formData.message} 
+                                onChange={handleChange}
+                                placeholder="Détaillez votre demande ici..."
+                                required
+                            />
+                        </div>
 
-            <button type="submit" className="submit-btn">
-                Envoyer le message
-            </button>
+                        <div className="rgpd-container-fixed">
+                            <input
+                                type="checkbox"
+                                name="acceptedTerms"
+                                id="acceptedTerms"
+                                checked={formData.acceptedTerms}
+                                onChange={handleChange}
+                                required
+                            />
+                            <label htmlFor="acceptedTerms">
+                                J'accepte les <a href='/cgu' target='_blank'>CGU / RGPD</a>
+                            </label>                        
+                        </div>
+
+                        <button type="submit" className="submit-btn">
+                            Envoyer le message
+                        </button>
                     </form>
 
                     {/* Colonne d'infos sur le côté */}
