@@ -20,11 +20,6 @@ const KanbanBoard = ({ taches, setTaches, onDeleteTask, onUpdateTask, idProjet }
         const activeId = active.id;
         const overId = over.id;
 
-        if (!activeId || activeId === "undefined") {
-            console.error("L'ID de la tâche est indéfini.");
-            return;
-        }
-
         const activeTask = taches.find(t => t.id === activeId);
         if (!activeTask) return;
 
@@ -34,34 +29,26 @@ const KanbanBoard = ({ taches, setTaches, onDeleteTask, onUpdateTask, idProjet }
         const validStatuses = ['À faire', 'En cours', 'Terminé'];
 
         if (validStatuses.includes(newStatus) && activeTask.statut !== newStatus) {
+            // 1. Update UI
             setTaches((prev) => prev.map(t =>
                 t.id === activeId ? { ...t, statut: newStatus } : t
             ));
 
+            // 2. Update BDD avec TES noms de colonnes
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch(`http://localhost:3000/api/taches/${activeId}`, {
+                await fetch(`http://localhost:3000/api/taches/${activeId}`, {
                     method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify({
-                        statut_taches: newStatus,
-                        id_projet: Number(idProjet),
-                        temps_reel_taches: activeTask.temps_reel ? activeTask.temps_reel.toString() : "0"
+                        statut_taches: newStatus, // Sauvegarde réelle
+                        id_projet: Number(idProjet)
                     })
                 });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    console.error("Erreur de persistance BDD:", errorData.message);
-                }
             } catch (error) {
-                console.error("Erreur lors de la mise à jour du statut:", error);
+                console.error("Erreur sauvegarde statut:", error);
             }
-        }
-        else if (active.id !== over.id) {
+        } else if (active.id !== over.id) {
             setTaches((items) => {
                 const oldIndex = items.findIndex((t) => t.id === active.id);
                 const newIndex = items.findIndex((t) => t.id === over.id);
@@ -84,7 +71,7 @@ const KanbanBoard = ({ taches, setTaches, onDeleteTask, onUpdateTask, idProjet }
                     id="À faire"
                     title="À faire"
                     icon="🎯"
-                    tasks={safeTaches.filter(t => String(t.statut).trim() === 'À faire')}
+                    tasks={safeTaches.filter(t => String(t.statut || "").trim() === 'À faire')}
                     onDeleteTask={onDeleteTask}
                     onUpdateTask={onUpdateTask}
                 />
@@ -92,7 +79,7 @@ const KanbanBoard = ({ taches, setTaches, onDeleteTask, onUpdateTask, idProjet }
                     id="En cours"
                     title="En cours"
                     icon="⚡"
-                    tasks={safeTaches.filter(t => String(t.statut).trim() === 'En cours')}
+                    tasks={safeTaches.filter(t => String(t.statut || "").trim() === 'En cours')}
                     onDeleteTask={onDeleteTask}
                     onUpdateTask={onUpdateTask}
                 />
@@ -100,7 +87,7 @@ const KanbanBoard = ({ taches, setTaches, onDeleteTask, onUpdateTask, idProjet }
                     id="Terminé"
                     title="Terminé"
                     icon="✅"
-                    tasks={safeTaches.filter(t => String(t.statut).trim() === 'Terminé')}
+                    tasks={safeTaches.filter(t => String(t.statut || "").trim() === 'Terminé')}
                     onDeleteTask={onDeleteTask}
                     onUpdateTask={onUpdateTask}
                 />
