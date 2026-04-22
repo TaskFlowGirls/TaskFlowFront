@@ -29,7 +29,9 @@ const KanbanColumn = ({ title, tasks, icon, id, onDeleteTask, onUpdateTask }) =>
                                 key={task.id}
                                 task={task}
                                 onDeleteTask={onDeleteTask}
-                                onUpdateTask={onUpdateTask}
+                                // CORRECTION : On passe onUpdateTask sous le nom 'onUpdate'
+                                // pour correspondre à ce que TaskCard attend.
+                                onUpdate={onUpdateTask} 
                             />
                         ))}
                     </div>

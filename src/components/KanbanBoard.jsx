@@ -5,11 +5,7 @@ import KanbanColumn from './KanbanColumn';
 
 const KanbanBoard = ({ taches, setTaches, onDeleteTask, onUpdateTask, idProjet }) => {
     const sensors = useSensors(
-        useSensor(PointerSensor, {
-            activationConstraint: {
-                distance: 5,
-            },
-        }),
+        useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
         useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
     );
 
@@ -25,72 +21,42 @@ const KanbanBoard = ({ taches, setTaches, onDeleteTask, onUpdateTask, idProjet }
 
         const overTask = taches.find(t => t.id === overId);
         const newStatus = overTask ? overTask.statut : overId;
-
         const validStatuses = ['À faire', 'En cours', 'Terminé'];
 
         if (validStatuses.includes(newStatus) && activeTask.statut !== newStatus) {
-            // 1. Update UI
-            setTaches((prev) => prev.map(t =>
-                t.id === activeId ? { ...t, statut: newStatus } : t
-            ));
-
-            // 2. Update BDD avec TES noms de colonnes
+            setTaches((prev) => prev.map(t => t.id === activeId ? { ...t, statut: newStatus } : t));
             try {
                 const token = localStorage.getItem('token');
                 await fetch(`http://localhost:3000/api/taches/${activeId}`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                    body: JSON.stringify({
-                        statut_taches: newStatus, // Sauvegarde réelle
-                        id_projet: Number(idProjet)
-                    })
+                    body: JSON.stringify({ statutTaches: newStatus, id_projet: Number(idProjet) })
                 });
-            } catch (error) {
-                console.error("Erreur sauvegarde statut:", error);
-            }
-        } else if (active.id !== over.id) {
+            } catch (error) { console.error("Erreur sauvegarde statut:", error); }
+        } else if (activeId !== overId) {
             setTaches((items) => {
-                const oldIndex = items.findIndex((t) => t.id === active.id);
-                const newIndex = items.findIndex((t) => t.id === over.id);
+                const oldIndex = items.findIndex((t) => t.id === activeId);
+                const newIndex = items.findIndex((t) => t.id === overId);
                 return arrayMove(items, oldIndex, newIndex);
             });
         }
     };
 
-    // Sécurité : On s'assure que taches est bien un tableau avant de filtrer
-    const safeTaches = Array.isArray(taches) ? taches : [];
-
     return (
-        <DndContext
-            sensors={sensors}
-            collisionDetection={closestCorners}
-            onDragEnd={handleDragEnd}
-        >
+        <DndContext sensors={sensors} collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
             <div className="kanban-board">
-                <KanbanColumn
-                    id="À faire"
-                    title="À faire"
-                    icon="🎯"
-                    tasks={safeTaches.filter(t => String(t.statut || "").trim() === 'À faire')}
-                    onDeleteTask={onDeleteTask}
-                    onUpdateTask={onUpdateTask}
-                />
-                <KanbanColumn
-                    id="En cours"
-                    title="En cours"
-                    icon="⚡"
-                    tasks={safeTaches.filter(t => String(t.statut || "").trim() === 'En cours')}
-                    onDeleteTask={onDeleteTask}
-                    onUpdateTask={onUpdateTask}
-                />
-                <KanbanColumn
-                    id="Terminé"
-                    title="Terminé"
-                    icon="✅"
-                    tasks={safeTaches.filter(t => String(t.statut || "").trim() === 'Terminé')}
-                    onDeleteTask={onDeleteTask}
-                    onUpdateTask={onUpdateTask}
-                />
+                {['À faire', 'En cours', 'Terminé'].map((status) => (
+                    <KanbanColumn
+                        key={status}
+                        id={status}
+                        title={status}
+                        icon={status === 'À faire' ? '🎯' : status === 'En cours' ? '⚡' : '✅'}
+                        tasks={(Array.isArray(taches) ? taches : []).filter(t => String(t.statut || "").trim() === status)}
+                        onDeleteTask={onDeleteTask}
+                        // IMPORTANT : On passe bien onUpdateTask ici pour qu'il arrive dans TaskCard
+                        onUpdateTask={onUpdateTask}
+                    />
+                ))}
             </div>
         </DndContext>
     );
