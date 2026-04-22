@@ -1,0 +1,66 @@
+.invite-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+}
+
+.invite-container input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.invite-container input:focus {
+    outline: none;
+    border-color: #2D89C8;
+    box-shadow: 0 0 0 2px rgba(45, 137, 200, 0.2);
+}
+
+.invite-container button {
+    padding: 12px;
+    background-color: #2D89C8;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.invite-container button:hover:not(:disabled) {
+    background-color: #1A4B7C;
+}
+
+.invite-container button:disabled {
+    background-color: #a0aec0;
+    cursor: not-allowed;
+}
+
+.invite-container p {
+    margin: 0;
+    text-align: center;
+    color: #38a169; 
+    font-size: 0.9rem;
+}
+
+/* Responsive pour mobiles */
+@media (max-width: 480px) {
+    .invite-container {
+        width: 90%;          /* Prend un peu moins de place sur les bords */
+        padding: 15px;       /* Un peu moins de marge interne */
+    }
+
+    .invite-container input, 
+    .invite-container button {
+        padding: 14px;       /* Boutons/inputs plus grands pour faciliter le clic au pouce */
+        font-size: 1rem;     /* Taille de police optimale pour éviter le zoom automatique sur iOS */
+    }
+}

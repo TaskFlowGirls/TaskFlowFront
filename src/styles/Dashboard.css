@@ -81,3 +81,28 @@
     color: #64748b;
     grid-column: 1 / -1;
 }
+
+.btn-invite {
+    background-color: #f4f5f7; /* Couleur gris clair Trello */
+    color: #42526e;            /* Texte gris foncé */
+    border: 2px solid transparent;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;               /* S'étend sur toute la carte */
+    margin-top: 10px;
+}
+
+.btn-invite:hover {
+    background-color: #ebecf0; /* Un peu plus sombre au survol */
+    color: #172b4d;
+}
+
+/* Optionnel : ajout d'une icône pour faire plus pro */
+.btn-invite::before {
+    content: "+";
+    margin-right: 8px;
+    font-weight: bold;
+}

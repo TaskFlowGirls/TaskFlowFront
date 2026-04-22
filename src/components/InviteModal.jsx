@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import emailjs from '@emailjs/browser';
+import '../styles/InviteModal.css'
 
 const InviteMember = () => {
     const [email, setEmail] = useState('');
@@ -19,7 +20,7 @@ const InviteMember = () => {
                 'service_d8kyixh', // Service ID
                 'template_p8ez1c9', // Template ID
                 templateParams,
-                'Oo228VY4aXT2oARqC'
+                'Oo228VY4aXT2oARqC' // Clé publique
             );
         } catch (err) {
             console.error("Erreur lors de l'envoi :", err);

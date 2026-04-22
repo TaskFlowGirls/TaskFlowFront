@@ -106,11 +106,10 @@
     resize: vertical;
 }
 
-/* Style de bouton harmonisé avec le projet */
 .submit-btn {
     width: 100%;
     padding: 14px;
-    background-color: #2D89C8; /* Bleu action du projet */
+    background-color: #2D89C8;
     color: white;
     border: none;
     border-radius: 6px;
@@ -138,8 +137,8 @@
 
 .rgpd-group {
     display: flex;
-    align-items: center; /* Aligne verticalement la case et le texte */
-    justify-content: flex-start; /* Force le tout à gauche */
+    align-items: center;
+    justify-content: flex-start;
     gap: 10px;
     margin: 15px 0;
     width: 100%;
