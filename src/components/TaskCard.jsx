@@ -38,7 +38,7 @@ const TaskCard = ({ task, onUpdate, onDeleteTask }) => {
             tempsReelTaches: timeLeft, // On enregistre la valeur actuelle du timer
             dateFinTaches: dateAEnregistrer
         });
-        toast.success("Progression enregistrée 💾");
+        toast.success("Progression enregistrée ");
     };
 
     const formatTime = (totalSeconds) => {

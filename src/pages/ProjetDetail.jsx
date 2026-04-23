@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import html2pdf from 'html2pdf.js';
 import Header from '../components/Header';
 import KanbanBoard from '../components/KanbanBoard';
 import ModalAddCard from '../components/ModalAddCard';
@@ -45,7 +46,39 @@ const ProjetDetail = () => {
         if (cleanId) fetchTaches();
     }, [cleanId]);
 
-    // 2. Suppression d'une tâche
+    // 2. Exportation en PDF
+    const handleDownloadPDF = () => {
+        const element = document.querySelector('.kanban-board');
+
+        if (!element) {
+            toast.error("Impossible de trouver le tableau à exporter");
+            return;
+        }
+
+        const options = {
+            margin: 10,
+            filename: `TaskFlow-Projet-${cleanId}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+        };
+
+        toast.loading("Génération du PDF...", { id: 'pdf-toast' });
+
+        html2pdf()
+            .set(options)
+            .from(element)
+            .save()
+            .then(() => {
+                toast.success("PDF téléchargé ! ", { id: 'pdf-toast' });
+            })
+            .catch((err) => {
+                console.error(err);
+                toast.error("Erreur lors de l'export PDF", { id: 'pdf-toast' });
+            });
+    };
+
+    // 3. Suppression d'une tâche
     const handleSupprimerTache = async (tacheId) => {
         if (!window.confirm("Supprimer cette tâche ?")) return;
         try {
@@ -57,7 +90,7 @@ const ProjetDetail = () => {
             });
             if (response.ok) {
                 setTaches(prev => prev.filter(t => t.id !== tacheId));
-                toast.success("Tâche supprimée 🗑️");
+                toast.success("Tâche supprimée ");
             } else {
                 toast.error("Erreur lors de la suppression");
             }
@@ -67,12 +100,10 @@ const ProjetDetail = () => {
         }
     };
 
-    // 3. Mise à jour d'une tâche (Statut, Timer, Date Fin)
+    // 4. Mise à jour d'une tâche
     const handleUpdateTache = async (tacheId, modifications) => {
-        console.log("DEBUG ProjetDetail - Modifications reçues :", modifications);
         try {
             const token = localStorage.getItem('token');
-
             const bodyData = {
                 statutTaches: modifications.statutTaches,
                 tempsReelTaches: modifications.tempsReelTaches,
@@ -97,7 +128,6 @@ const ProjetDetail = () => {
                         date_fin: modifications.dateFinTaches || t.date_fin
                     } : t
                 ));
-                // On ne met un toast success que si ce n'est pas un drag & drop (optionnel)
                 if (modifications.tempsReelTaches) toast.success("Progression enregistrée !");
             }
         } catch (error) {
@@ -106,13 +136,10 @@ const ProjetDetail = () => {
         }
     };
 
-    // 4. Ajout d'une nouvelle tâche
+    // 5. Ajout d'une nouvelle tâche
     const ajouterTache = async (infosTache) => {
         try {
             const token = localStorage.getItem('token');
-
-            console.log("Valeur brute reçue du formulaire :", infosTache.dateButoire);
-
             const response = await fetch(`http://localhost:3000/api/taches/projet/${cleanId}`, {
                 method: 'POST',
                 headers: {
@@ -133,7 +160,6 @@ const ProjetDetail = () => {
 
             if (response.ok) {
                 const dataCreated = await response.json();
-
                 const nouvelleTache = {
                     id: dataCreated.id_taches,
                     titre: infosTache.titre,
@@ -146,7 +172,7 @@ const ProjetDetail = () => {
 
                 setTaches(prev => [...prev, nouvelleTache]);
                 setIsModalOpen(false);
-                toast.success("Nouvelle tâche créée ! 🚀");
+                toast.success("Nouvelle tâche créée ! ");
             } else {
                 toast.error("Erreur lors de la création");
             }
@@ -162,9 +188,18 @@ const ProjetDetail = () => {
             <main className="kanban-main">
                 <header className="kanban-header">
                     <h1>Tableau de bord</h1>
-                    <button className="btn-add-task" onClick={() => setIsModalOpen(true)}>
-                        + Nouvelle Tâche
-                    </button>
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                        <button
+                            className="btn-download-pdf"
+                            onClick={handleDownloadPDF}
+                            style={{ backgroundColor: '#64748b', color: 'white', padding: '10px 15px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+                        >
+                            Export PDF
+                        </button>
+                        <button className="btn-add-task" onClick={() => setIsModalOpen(true)}>
+                            + Nouvelle Tâche
+                        </button>
+                    </div>
                 </header>
                 <KanbanBoard
                     taches={taches}

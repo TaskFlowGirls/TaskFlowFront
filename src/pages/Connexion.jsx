@@ -37,17 +37,17 @@ const Connexion = () => {
                 localStorage.setItem('user', JSON.stringify(data.user));
 
                 // 3. Notification de succès
-                toast.success(`Heureux de vous revoir, ${data.user.prenom || 'utilisateur'} ! 👋`);
+                toast.success(`Heureux de vous revoir, ${data.user.prenom || 'utilisateur'} ! `);
 
                 // 4. Redirection
                 navigate('/');
             } else {
                 // Remplacement de l'alert par un toast error
-                toast.error(data.message || "Email ou mot de passe incorrect ❌");
+                toast.error(data.message || "Email ou mot de passe incorrect ");
             }
         } catch (error) {
             console.error("Erreur de connexion :", error);
-            toast.error("Le serveur ne répond pas. Vérifie la connexion ! 🔌");
+            toast.error("Le serveur ne répond pas. Vérifie la connexion ! ");
         }
     };
 
