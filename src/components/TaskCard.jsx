@@ -108,7 +108,7 @@ const TaskCard = ({ task, onUpdate, onDeleteTask }) => {
                             onClick={() => handleSaveData()}
                             style={{backgroundColor: '#10b981', color: 'white', border: 'none', borderRadius: '4px', padding: '4px 8px', fontSize: '0.7rem', cursor: 'pointer'}}
                         >
-                            💾 Enregistrer
+                            Enregistrer
                         </button>
                     )}
                 </div>

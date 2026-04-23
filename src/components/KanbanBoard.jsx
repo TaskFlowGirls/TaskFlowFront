@@ -50,7 +50,7 @@ const KanbanBoard = ({ taches, setTaches, onDeleteTask, onUpdateTask, idProjet }
                         key={status}
                         id={status}
                         title={status}
-                        icon={status === 'À faire' ? '🎯' : status === 'En cours' ? '⚡' : '✅'}
+                        icon={status === 'À faire' ? '' : status === 'En cours' ? '' : ''}
                         tasks={(Array.isArray(taches) ? taches : []).filter(t => String(t.statut || "").trim() === status)}
                         onDeleteTask={onDeleteTask}
                         // IMPORTANT : On passe bien onUpdateTask ici pour qu'il arrive dans TaskCard
